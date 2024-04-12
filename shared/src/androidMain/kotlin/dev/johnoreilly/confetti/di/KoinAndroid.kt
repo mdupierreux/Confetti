@@ -14,6 +14,9 @@ import coil.ImageLoader
 import coil.decode.SvgDecoder
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.cache.normalized.FetchPolicy
+import com.apollographql.apollo3.cache.normalized.api.MemoryCacheFactory
+import com.apollographql.apollo3.cache.normalized.api.NormalizedCacheFactory
+import com.apollographql.apollo3.cache.normalized.sql.SqlNormalizedCacheFactory
 import com.apollographql.apollo3.network.http.DefaultHttpEngine
 import com.apollographql.apollo3.network.ws.DefaultWebSocketEngine
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -45,6 +48,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+@OptIn(ExperimentalHorologistApi::class, ExperimentalSettingsImplementation::class)
 actual fun platformModule() = module {
     singleOf(::AndroidDateService) { bind<DateService>() }
     single<OkHttpClient> {
@@ -115,4 +119,9 @@ actual fun platformModule() = module {
 
 val Context.settingsStore by preferencesDataStore("settings")
 
-actual fun getDatabaseName(conference: String, uid: String?) = "$conference$uid.db"
+
+actual fun getNormalizedCacheFactory(conference: String, uid: String?): NormalizedCacheFactory {
+    val sqlNormalizedCacheFactory = SqlNormalizedCacheFactory("$conference$uid.db")
+    return MemoryCacheFactory(10 * 1024 * 1024)
+        .chain(sqlNormalizedCacheFactory)
+}

@@ -10,6 +10,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("kotlinx-serialization")
     id("io.github.takahirom.roborazzi")
+    id("org.jetbrains.compose")
 }
 
 configureCompilerOptions()

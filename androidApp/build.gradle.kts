@@ -9,6 +9,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("io.github.takahirom.roborazzi")
+    id("org.jetbrains.compose")
 }
 
 configureCompilerOptions()

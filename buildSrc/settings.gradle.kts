@@ -15,6 +15,7 @@ pluginManagement {
                     includeGroupByRegex(".*android.*")
                 }
             }
+            mavenLocal()
             mavenCentral()
             gradlePluginPortal()
         }

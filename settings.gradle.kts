@@ -9,9 +9,11 @@ pluginManagement {
                     includeGroupByRegex(".*android.*")
                 }
             }
+            mavenLocal()
             mavenCentral()
             maven(url = "https://androidx.dev/storage/compose-compiler/repository")
             maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev")
+            maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
             gradlePluginPortal {
                 content {
                 }
@@ -45,6 +47,9 @@ include(":wearApp")
 include(":wearBenchmark")
 include(":webApp")
 include(":compose-desktop")
+include(":compose-web")
+include(":proto")
+
 
 check(JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17)) {
     "This project needs to be run with Java 17 or higher (found: ${JavaVersion.current()})."
